@@ -1,0 +1,40 @@
+#button{
+    margin-bottom: 100px;
+    border-radius: 50%;
+    border: none;
+    display: inline-block;
+    border: none;
+    color: white;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.container{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.table{
+    margin-top:200px;
+}
+
+#close{
+    right:0px;
+    top:0px;
+}
+
+#book-button{
+    width:100px;
+    height: 45.9px;
+    border-radius: 0px;
+}
+
+.buttons{
+
+}

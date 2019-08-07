@@ -1,0 +1,9 @@
+.btn-group-row{
+    display:flex;
+    justify-content: space-between
+}
+
+#buttons:hover{
+    background-color: gray
+}
+
