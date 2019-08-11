@@ -1,14 +1,8 @@
-body {
-  /* position: relative;
-  background: #131313; */
-  margin-top: 200px;
-}
-html {
-  background: #ffffff;
+/* html, body {
   font-family: system-ui;
   -webkit-font-smoothing: antialiased;
   padding: 0px 0;
-}
+} */
 
 header {
   width: 90%;
@@ -104,6 +98,7 @@ span {
 }
 
 footer {
+  color: white;
   position: relative;
     bottom: 0px;
     left: 0px;

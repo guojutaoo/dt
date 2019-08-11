@@ -1,7 +1,11 @@
 import React from "react";
 
 const NotFound = () => {
-  return <h1>404 bad request</h1>;
+  return (
+    <div className="body">
+      <h1>404 bad request</h1>
+    </div>
+  );
 };
 
 export default NotFound;

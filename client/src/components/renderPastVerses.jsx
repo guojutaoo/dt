@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getSingleVerse } from "./fakeBackEndService/fakePastVersesService";
-// import PastVerses from "./pastVerses";
+import "./css/renderPastVerses.css"
 
 class RenderPastVerse extends Component {
   state = { date: "", verse: [], date1: "" };
@@ -20,9 +20,11 @@ class RenderPastVerse extends Component {
     const { date, verse } = this.state;
     return (
       <React.Fragment>
-        <h1>{date}</h1>
-        <h2>{verse.date}</h2>
-        <h3>{verse.verse}</h3>
+        <div className="daily-text">
+          <h1>{date}</h1>
+          <h2>{verse.date}</h2>
+          <h3>{verse.verse}</h3>
+        </div>
       </React.Fragment>
     );
   }

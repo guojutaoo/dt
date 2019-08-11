@@ -4,8 +4,6 @@ import { getBooks } from "./server/getBible";
 import Key from "./key.json";
 import "./css/bibleCards.css";
 
-// import "react-datepicker/dist/react-datepicker-cssmodules.css";
-
 class ReadBible extends Component {
   state = { books: [], rowNum: [0] };
   async componentDidMount() {
@@ -15,6 +13,7 @@ class ReadBible extends Component {
       length: Math.ceil(books.length / 4)
     }).map(Number.call, Number);
     this.setState({ rowNum });
+    // console.log(this.state.books)
   }
 
   render() {

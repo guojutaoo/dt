@@ -1,0 +1,25 @@
+.App{
+    background: linear-gradient(120deg, #487eb0, #fbc531);
+    margin-top: -200px;
+    padding: 200px;
+}
+
+.table{
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.table-text{
+    padding: 100px;
+    text-align: center;
+    margin-bottom: -300px;
+    /* animation: a1 10s infinite linear; */
+}
+
+/* @keyframes a1 {
+    0% {
+        margin-left: 0px;
+    }
+    100% {
+        margin-left: 1000px;
+    }
+} */

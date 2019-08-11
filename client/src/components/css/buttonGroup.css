@@ -1,0 +1,33 @@
+#book-button {
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+#book-button:focus{
+    animation: btn1 1s;
+}
+
+.btn-marked{
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #24bd64;
+    transition: 0.3s;
+}
+.btn-original{
+    background-color: rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 1);
+    transition: 0.2s;
+}
+
+.btn-marked:hover{
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #7cdda4;
+}
+
+.btn-original:hover{
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+@keyframes btn1 {
+    to{
+        border-color: rgb(50, 91, 205);
+    }
+}

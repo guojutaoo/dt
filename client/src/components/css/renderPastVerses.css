@@ -1,0 +1,9 @@
+html, body{
+    padding: 0px;
+    /* background-color: #ffff; */
+}
+
+.daily-text{
+    /* background-color: #ffff; */
+    min-height: 1000px;
+}

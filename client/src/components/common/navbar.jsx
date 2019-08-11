@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import StickyHeader from "react-sticky-header";
 import DatePicker from "react-datepicker";
+import Admin from "../admin";
 import { Link, NavLink } from "react-router-dom";
 import { Redirect } from "react-router";
 import { getPastVerses } from "../fakeBackEndService/fakePastVersesService";
 import "react-sticky-header/styles.css";
 import "../css/calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Navbar extends Component {
   state = {
@@ -15,7 +16,8 @@ class Navbar extends Component {
     searchKey: "",
     startDate: new Date(),
     isOpen: false,
-    redirect: false
+    redirect: false,
+    lockStyle: "lock"
   };
   handleChange = input => {
     const searchKey = input.target.value;
@@ -43,8 +45,14 @@ class Navbar extends Component {
     today.setUTCDate(day);
     today.setUTCMonth(month - 1);
     today.setUTCFullYear(year);
-    // console.log(today, days, months)
     return today;
+  };
+
+  unLock = () => {
+    this.setState({ lockStyle: "lock-open" });
+  };
+  Lock = () => {
+    this.setState({ lockStyle: "lock" });
   };
 
   render() {
@@ -67,7 +75,7 @@ class Navbar extends Component {
             "/daily-devotion/" +
             (this.state.startDate.getFullYear() +
               "-" +
-              (this.state.startDate.getMonth()+1) +
+              (this.state.startDate.getMonth() + 1) +
               "-" +
               this.state.startDate.getDate())
           }
@@ -76,12 +84,12 @@ class Navbar extends Component {
     }
 
     return (
-      <StickyHeader 
+      <StickyHeader
         header={
           <React.Fragment>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
               <Link className="navbar-brand" to="#">
-                <i className="fa fa-fire" aria-hidden="true" /> Gracepoint
+                <FontAwesomeIcon icon="cross" /> Devotion
               </Link>
               <button
                 className="navbar-toggler"
@@ -101,22 +109,21 @@ class Navbar extends Component {
                 <ul className="navbar-nav mr-auto">
                   <li className="nav-item active">
                     <NavLink className="nav-link" to="/home">
-                      <i className="fa fa-home" aria-hidden="true" /> Home{" "}
+                      <FontAwesomeIcon icon="home" /> Home{" "}
                       <span className="sr-only">(current)</span>
                     </NavLink>
                   </li>
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/daily-devotion">
-                      <i className="fa fa-lightbulb-o" aria-hidden="true" />{" "}
-                      Daily Devotion
+                      <FontAwesomeIcon icon="lightbulb" /> Daily Devotion
                     </NavLink>
                   </li>
                   <div>
                     <button
-                      className="btn btn-primary"
+                      className="btn btn-dark"
                       onClick={this.toggleCalendar}
                     >
-                      {format(this.state.startDate, "mm-dd-yyyy")}
+                      {format(this.state.startDate, "yyyy-mm-dd")}
                     </button>
                     {this.state.isOpen && (
                       <DatePicker
@@ -146,22 +153,24 @@ class Navbar extends Component {
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
-                      <i className="fa fa-calendar" aria-hidden="true" /> Past
-                      Verses
+                      <FontAwesomeIcon icon="clock" /> Past Verses
                     </NavLink>
                     <div
                       className="dropdown-menu"
                       aria-labelledby="navbarDropdown"
                     >
-                      {pastVerses.slice(-7, -1).map(verse => (
-                        <NavLink
-                          className="dropdown-item"
-                          key={verse.date}
-                          to={"/daily-devotion/" + verse.date}
-                        >
-                          {verse.date} {verse.verse}
-                        </NavLink>
-                      ))}
+                      {pastVerses
+                        .slice(0, 7)
+                        .reverse()
+                        .map(verse => (
+                          <NavLink
+                            className="dropdown-item"
+                            key={verse.date}
+                            to={"/daily-devotion/" + verse.date}
+                          >
+                            {verse.date} {verse.verse}
+                          </NavLink>
+                        ))}
                       <div className="dropdown-divider" />
                       <NavLink className="dropdown-item" to="/past-verses">
                         See all
@@ -170,7 +179,16 @@ class Navbar extends Component {
                   </li>
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/read-bible">
-                      <i className="fa fa-book" aria-hidden="true" /> Bible
+                      <FontAwesomeIcon icon="bible" /> Bible
+                    </NavLink>
+                  </li>
+                  <li
+                    className="nav-item"
+                    onMouseEnter={this.unLock}
+                    onMouseLeave={this.Lock}
+                  >
+                    <NavLink className="nav-link" to="/admin">
+                      <FontAwesomeIcon icon={this.state.lockStyle} /> Admin
                     </NavLink>
                   </li>
                 </ul>
@@ -188,9 +206,10 @@ class Navbar extends Component {
                     className="btn btn-outline-success my-2 my-sm-0"
                     type="submit"
                   >
-                    Search
+                    <FontAwesomeIcon icon="search" /> Search
                   </button>
                 </form>
+                <a href="https://localhost:8080/">Click me</a>
               </div>
             </nav>
           </React.Fragment>

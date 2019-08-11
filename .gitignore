@@ -1,18 +1,18 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+/client/node_modules
 
 # testing
-/coverage
+/client/coverage
 
 # production
-/build
+/client/build
 
 # password
-/src/components/key.json
-/src/components/hhhhhome.jsx
-/src/components/test.jsx
+/client/src/components/key.json
+/clinet/src/components/hhhhhome.jsx
+/client/src/components/test.jsx
 # misc
 .DS_Store
 .env

@@ -1,9 +1,10 @@
 import React from "react";
 import propTypes from "prop-types";
+import "../css/pagination.css";
 
 const Pagination = props => {
   const { currentPage, maxPage, onPageChange } = props;
-  console.log(currentPage); //check if meet the maximum page
+  // console.log(currentPage); //check if meet the maximum page
   let previousClass = "page-item";
   let nextClass = "page-item";
   let startPageState = currentPage < 3 ? true : false;
@@ -11,7 +12,7 @@ const Pagination = props => {
   if (currentPage === 1) previousClass += " disabled";
   if (currentPage === maxPage) nextClass += " disabled";
   return (
-    <nav aria-label="Page navigation example">
+    <nav className="pagebar" aria-label="Page navigation example">
       {maxPage !== 1 && maxPage !==0 && (
         <ul className="pagination justify-content-center">
           <li className={previousClass}>

@@ -6,6 +6,7 @@ import Key from "./key.json";
 class ReadChapter extends Component {
   state = { chapterId: "", chapters: [], rowNum: [0] };
   async componentDidMount() {
+    window.scrollTo(0, 0);
     const chapterId = this.props.match.params.id;
     this.setState({ chapterId });
     const chapters = await getChapters(Key["ESV"], chapterId);
@@ -16,6 +17,7 @@ class ReadChapter extends Component {
     this.setState({ rowNum });
   }
   render() {
+    // console.log(this.state.chapters)
     const link = "/read-bible/text/";
     const chapters = [...this.state.chapters];
     const rowNum = this.state.rowNum;

@@ -14,7 +14,6 @@ class GetChapterText extends Component {
   render() {
     const chapterId = this.state.chapterId;
     const chapterText = this.state.chapterText;
-    console.log(chapterId, chapterText)
     return (
       <React.Fragment>
         <div className="container">

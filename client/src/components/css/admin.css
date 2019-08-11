@@ -1,24 +1,28 @@
-#button{
-    margin-bottom: 100px;
-    border-radius: 50%;
-    border: none;
-    display: inline-block;
-    border: none;
-    color: white;
-    height: 40px;
-    width: 40px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-
 .container{
-    /* position: fixed; */
-    /* line-height: 40px; */
     padding-left: 15px;
     padding-right: 15px;
-    /* margin-top: 200px; */
+    position: relative;
+    margin-bottom: 100px;
 }
+
+.admin-text {
+    margin-top: 100px;
+    margin-bottom: -220px;
+    text-align: center;
+}
+
+.table{
+    margin-top:300px;
+}
+
+#close{
+    right:0px;
+    top:0px;
+}
+
+#book-button{
+    width:100px;
+    height: 45.9px;
+    border-radius: 0px;
+}
+

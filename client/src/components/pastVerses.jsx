@@ -4,14 +4,8 @@ import TableHeader from "./common/tableHeader";
 import { getPastVerses } from "./fakeBackEndService/fakePastVersesService";
 import Pagination from "./common/pagination";
 import { paginate, getMaxPageNum } from "./utils/paginate";
-// import {
-//   getBibleVersion,
-//   getBooks,
-//   getChapters,
-//   getSections,
-//   getVerses,
-//   getChapterText
-// } from "./server/getBible";
+import "./css/pastVerses.css";
+
 
 class PastVerses extends Component {
   state = {
@@ -26,10 +20,6 @@ class PastVerses extends Component {
     const maxPage = getMaxPageNum(pastVerses, this.state.itemPerPage);
     this.setState({ maxPage });
   }
-  // handleStatusChange = readStatus => {
-  //   readStatus = !readStatus;
-  //   this.setState({ readStatus });
-  // };
   handlePageChange = currentPage => {
     this.setState({ currentPage });
   };
@@ -40,15 +30,15 @@ class PastVerses extends Component {
       this.state.currentPage,
       this.state.itemPerPage
     );
-    console.log(filtered)
 
     return (
       <React.Fragment>
-        <h1>Daily Devotion</h1>
-        <table className="table table-bordered">
+        <h1 className="table-text">Daily Devotion</h1>
+        <table className="table table-bordered table-striped">
           <TableHeader />
           <TableBody
             pastVerses={filtered}
+            showButton={true}
           />
         </table>
         <Pagination

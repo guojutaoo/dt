@@ -1,0 +1,35 @@
+td{
+    color: #fff;
+}
+
+.text-right{
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.text-right a{
+    color: white;
+    margin-right: 50px;
+    transition: 0.2s
+}
+
+.text-right a:hover{
+    color: yellowgreen;
+}
+
+#icon-update, #icon-delete, #icon-create{
+    margin-right: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#icon-delete:hover{
+    color: #ee1f09;
+}
+
+#icon-update:hover{
+    color: #f39c12;
+}
+
+#icon-create:hover{
+    color: #2ecc71;
+}

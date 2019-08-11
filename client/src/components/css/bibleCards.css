@@ -1,13 +1,13 @@
 .cards{
-  background-color:white;
+  /* background-color:white; */
+  margin-top:100px;
+  min-height: 1000px;
 }
 .card_title {
-  /* margin: -50px; */
   position: absolute;
   color: #ffffff;
   top: 0;
   left:0;
-  /* box-sizing: border-box; */
   padding:40px;
   font-weight: bold;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -15,15 +15,7 @@
   text-orientation: upright;
   writing-mode: vertical-lr;
 }
-/* .card_content {
-  padding: 0px;
-  text-transform: capitalize;
-  flex: 1 1 auto;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  margin-bottom: 1.25rem;
-  color: white;
-} */
+
 
 .card_item{
     padding: 0px;
@@ -32,7 +24,6 @@
 .card_img{
     border-radius: 20px;
     height:350px;
-    /* margin-bottom: 40px; */
     overflow: hidden;
     cursor: pointer;
 }
@@ -70,7 +61,7 @@
   left:0%;
   position: absolute;
   border-radius:20px;
-  background-image:linear-gradient(to right,blue, cyan, violet);
+  background-image:linear-gradient(to right,blue, cyan);
   transform: perspective(800px) rotateY(180deg) translateZ(1px)
 }
 

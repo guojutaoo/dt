@@ -3,7 +3,6 @@ import "./css/home.css";
 
 class Home extends Component {
   state = {};
-  // "url("+"https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/flex-1.jpg)"
   render() {
     return (
       <React.Fragment>

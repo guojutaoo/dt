@@ -77,7 +77,6 @@ export function getSections(bibleVersionID, bibleBookID) {
           resolve(sections);
         }
       });
-  
       xhr.open(`GET`, `https://api.scripture.api.bible/v1/bibles/${bibleVersionID}/books/${bibleBookID}/sections`);
       xhr.setRequestHeader(`api-key`, key['API_KEY']);
   
@@ -91,19 +90,25 @@ export function getSections(bibleVersionID, bibleBookID) {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.withCredentials = false;
+  
       xhr.addEventListener(`readystatechange`, function() {
         if (this.readyState === this.DONE) {
           const {data} = JSON.parse(this.responseText);
           const verses = data.map( ({id}) => { return {id};} );
+  
           resolve(verses);
         }
       });
+  
       xhr.open(`GET`, `https://api.scripture.api.bible/v1/bibles/${bibleVersionID}/chapters/${bibleChapterID}/verses`);
       xhr.setRequestHeader(`api-key`, key['API_KEY']);
+  
       xhr.onerror = () => reject(xhr.statusText);
+  
       xhr.send();
     });
   }
+  
 
   export function getChapterText(bibleVersionID, bibleChapterID) {
     return new Promise((resolve, reject) => {
@@ -124,3 +129,26 @@ export function getSections(bibleVersionID, bibleBookID) {
       xhr.send();
     });
   }
+
+  // export function getResults(verseID) {
+  //   return new Promise((resolve, reject) => {
+  //     const xhr = new XMLHttpRequest();
+  //     xhr.withCredentials = false;
+  
+  //     xhr.addEventListener(`readystatechange`, function() {
+  //       if (this.readyState === this.DONE) {
+  //         const {data, meta} = JSON.parse(this.responseText);
+  
+  //         // _BAPI.t(meta.fumsId);
+  //         resolve(data);
+  //       }
+  //     });
+  
+  //     xhr.open(`GET`, `https://api.scripture.api.bible/v1/bibles/${BIBLE_ID}/search?query=${verseID}`);
+  //     xhr.setRequestHeader(`api-key`, key['API_KEY']);
+  
+  //     xhr.onerror = () => reject(xhr.statusText);
+  
+  //     xhr.send();
+  //   });
+  // }
