@@ -6,6 +6,11 @@ import (
 	"regexp"
 )
 
+// type User struct {
+// 	Email    string `json: "email"`
+// 	Password string `json: "password"`
+// }
+
 func handler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	if r.Method == "GET" {
@@ -37,8 +42,9 @@ func receiveClientRequest(w http.ResponseWriter, r *http.Request) {
 func main() {
 	fmt.Println("yeah!")
 	// http.HandleFunc("/", receiveClientRequest)
-	http.HandleFunc("/", handler)
-	http.HandleFunc("/login", login)
+	// http.HandleFunc("/", handler)
+	http.HandleFunc("/", getBooks)
 	http.ListenAndServe(":8080", nil)
-
+	// db := connectDB()
+	// query(db)
 }

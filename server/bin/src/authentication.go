@@ -19,9 +19,6 @@ func login(w http.ResponseWriter, r *http.Request) {
 		var data Data
 		log.Println(decoder)
 		decoder.Decode(&data)
-		// if err != nil {
-		// 	panic(err)
-		// }
 		fmt.Println(data.Password, data.Email)
 		if len(data.Email) > 0 && len(data.Password) > 0 {
 			if isRegistered(data.Email, data.Password) {
