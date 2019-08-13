@@ -2,6 +2,7 @@
 
 # dependencies
 /client/node_modules
+/server/bin/pkg
 
 # testing
 /client/coverage
