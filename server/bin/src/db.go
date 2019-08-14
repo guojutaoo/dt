@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"strings"
 
 	_ "github.com/lib/pq"
 )
@@ -43,18 +44,13 @@ func loginQuery(db *sql.DB, email string, psw string) bool {
 
 	for rows.Next() {
 		err := rows.Scan(&username, &password)
-		if email == username && psw == password {
+		if strings.Compare(email, username) == 0 && strings.Compare(psw, password) == 0 {
 			return true
 		}
 		if err != nil {
 			fmt.Println(err)
 		}
 	}
-	err = rows.Err()
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Println(username, password)
+	// fmt.Println(username, password)
 	return false
 }

@@ -209,7 +209,7 @@ class Navbar extends Component {
                     <FontAwesomeIcon icon="search" /> Search
                   </button>
                 </form>
-                <a href="https://localhost:8080/">Click me</a>
+                <a href="https://localhost:8080/verses/EXO.1">Click me</a>
               </div>
             </nav>
           </React.Fragment>

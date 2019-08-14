@@ -11,27 +11,22 @@ class Login extends Component {
       this.setState({ password: input.target.value });
   };
 
-  handleSubmit = () => {
-    this.setState({ auth: true });
-  };
-
   submitForm = event => {
     event.preventDefault();
-    axios.post(`http://localhost:8080/login`, { crossdomain: true }, {
-      email: "jutaog@uci.edu",
-      password: "guojutao" 
-    }).then(function(res){
-      console.log(res);
-    })
+    axios
+      .post("http://localhost:8080/login", {email: this.state.email, password: this.state.password
+      })
+      .then(res=> {
+        this.setState({auth: res.data});
+      });
   };
 
   render() {
-    alert(this.state.flag);
     return (
       <div className="login">
         <h1>Login Form</h1>
         <form
-          // onChange={this.handleChange}
+          onChange={this.handleChange}
           className="loginForm"
           onSubmit={this.submitForm}
         >
@@ -51,8 +46,6 @@ class Login extends Component {
             type="submit"
             className="login-form-btn"
             value="Submit"
-            // onSubmit={this.handleSubmit}
-            // onClick={this.submitForm}
           />
         </form>
       </div>

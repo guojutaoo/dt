@@ -72,7 +72,7 @@ func getVersions(w http.ResponseWriter, r *http.Request) {
 			os.Exit(1)
 		}
 		bodyString := string(bodyBytes)
-		fmt.Fprintln(w, bodyString)
+		fmt.Fprintf(w, bodyString)
 	}
 }
 
@@ -93,15 +93,16 @@ func getBooks(w http.ResponseWriter, r *http.Request) {
 		books := books{}
 		err = json.Unmarshal([]byte(bodyString), &books)
 		for _, book := range books.Data {
-			fmt.Println(book.ID)
-			fmt.Println(book.Abbreviation)
+			fmt.Fprintf(w, book.ID)
+			fmt.Fprintf(w, book.Abbreviation)
 		}
 	}
 }
 
 func getChapters(w http.ResponseWriter, r *http.Request) {
+	path := r.URL.Path[10:] //EXO
 	client := &http.Client{}
-	request, err := http.NewRequest("GET", "https://api.scripture.api.bible/v1/bibles/9879dbb7cfe39e4d-01/books/EXO/chapters", nil)
+	request, err := http.NewRequest("GET", "https://api.scripture.api.bible/v1/bibles/9879dbb7cfe39e4d-01/books/"+path+"/chapters", nil)
 	request.Header.Set("api-key", "a93ffc2f6780bad2a25dbab5136df97e")
 	if err != nil {
 		os.Exit(1)
@@ -116,15 +117,16 @@ func getChapters(w http.ResponseWriter, r *http.Request) {
 		chapters := chapters{}
 		err = json.Unmarshal([]byte(bodyString), &chapters)
 		for _, chapter := range chapters.Data {
-			fmt.Println(chapter.Number)
-			fmt.Println(chapter.Reference)
+			fmt.Fprintf(w, chapter.Number)
+			fmt.Fprintf(w, chapter.Reference)
 		}
 	}
 }
 
 func getChapterText(w http.ResponseWriter, r *http.Request) {
+	path := r.URL.Path[14:] //EXO.1
 	client := &http.Client{}
-	request, err := http.NewRequest("GET", "https://api.scripture.api.bible/v1/bibles/9879dbb7cfe39e4d-01/chapters/EXO.1", nil)
+	request, err := http.NewRequest("GET", "https://api.scripture.api.bible/v1/bibles/9879dbb7cfe39e4d-01/chapters/"+path, nil)
 	request.Header.Set("api-key", "a93ffc2f6780bad2a25dbab5136df97e")
 	if err != nil {
 		os.Exit(1)
@@ -138,14 +140,16 @@ func getChapterText(w http.ResponseWriter, r *http.Request) {
 		bodyString := string(bodyBytes)
 		chaptersText := text{}
 		err = json.Unmarshal([]byte(bodyString), &chaptersText)
-		fmt.Println(chaptersText.Data.(map[string]interface{})["bookId"].(string))
-		fmt.Println(chaptersText.Data.(map[string]interface{})["next"].(map[string]interface{})["bookId"].(string))
+		fmt.Fprintf(w, chaptersText.Data.(map[string]interface{})["bookId"].(string))
+		fmt.Fprintf(w, chaptersText.Data.(map[string]interface{})["next"].(map[string]interface{})["bookId"].(string))
 	}
 }
 
 func getVerses(w http.ResponseWriter, r *http.Request) {
+	path := r.URL.Path[8:] //EXO.1
+	fmt.Fprintf(w, path)
 	client := http.Client{}
-	request, err := http.NewRequest("GET", "https://api.scripture.api.bible/v1/bibles/9879dbb7cfe39e4d-01/chapters/EXO.1/verses", nil)
+	request, err := http.NewRequest("GET", "https://api.scripture.api.bible/v1/bibles/9879dbb7cfe39e4d-01/chapters/"+path+"/verses", nil)
 	request.Header.Set("api-key", "a93ffc2f6780bad2a25dbab5136df97e")
 	if err != nil {
 		os.Exit(1)
@@ -159,15 +163,19 @@ func getVerses(w http.ResponseWriter, r *http.Request) {
 		bodyString := string(bodyBytes)
 		verses := verses{}
 		err = json.Unmarshal([]byte(bodyString), &verses)
-		for _, verse := range verses.Data {
-			fmt.Println(verse.Reference)
-		}
+		// for _, verse := range verses.Data {
+		// 	fmt.Fprintf(w, verse.Reference)
+		// }
+		jData, err := json.Marshal(verses)
+		json.NewEncoder(w).Encode(jData)
 	}
 }
 
 func getVerseText(w http.ResponseWriter, r *http.Request) {
+	path := r.URL.Path[12:] //EXO.1.1
+	fmt.Fprintf(w, path)
 	client := &http.Client{}
-	request, err := http.NewRequest("GET", "https://api.scripture.api.bible/v1/bibles/9879dbb7cfe39e4d-01/verses/EXO.1.1?include-chapter-numbers=false&include-verse-numbers=false", nil)
+	request, err := http.NewRequest("GET", "https://api.scripture.api.bible/v1/bibles/9879dbb7cfe39e4d-01/verses/"+path+"?include-chapter-numbers=false&include-verse-numbers=false", nil)
 	request.Header.Set("api-key", "a93ffc2f6780bad2a25dbab5136df97e")
 	if err != nil {
 		os.Exit(1)
@@ -181,7 +189,7 @@ func getVerseText(w http.ResponseWriter, r *http.Request) {
 		bodyString := string(bodyBytes)
 		versesText := text{}
 		err = json.Unmarshal([]byte(bodyString), &versesText)
-		fmt.Println(versesText.Data.(map[string]interface{})["reference"].(string))
-		fmt.Println(versesText.Data.(map[string]interface{})["next"].(map[string]interface{})["id"].(string))
+		fmt.Fprintf(w, versesText.Data.(map[string]interface{})["reference"].(string))
+		fmt.Fprintf(w, versesText.Data.(map[string]interface{})["next"].(map[string]interface{})["id"].(string))
 	}
 }
