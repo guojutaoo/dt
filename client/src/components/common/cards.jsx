@@ -4,12 +4,12 @@ import Image1 from "../images/cityscapes-dual-theme.jpg";
 import Image2 from "../images/dark-fantasy-landscape-theme.jpg";
 import Image3 from "../images/avengers-endgame-theme.jpg";
 import Image4 from "../images/spirit-away.jpg";
+import "../css/cards.css";
 
 class Cards extends Component {
   state = {};
   render() {
     const { books, rowNum, link } = this.props;
-    const imageUrl = getImageUrl();
     let images = [Image1, Image2, Image3, Image4];
     return (
       <React.Fragment>
@@ -20,53 +20,26 @@ class Cards extends Component {
         />
         <script src="https://unpkg.com/react-image/umd/index.js" />
         <div className="cards">
-          {rowNum.map(num => (
-            <div className="w3-container-4" key={num}>
-              <div className="row">
-                {Array.prototype.slice
-                  .call(books, 4 * num, 4 * (num + 1))
-                  .map(book => (
-                    <div
-                      className="col-sm-3"
-                      key={book.id}
-                      style={{ marginBottom: "50px" }}
-                    >
-                      <div
-                        className="w3-card w3-margin"
-                        style={{ marginBottom: "50px" }}
-                      >
-                        <div className="flip">
-                          <div className="front">
-                            <img
-                              className="card_img"
-                              src={images[Math.floor(Math.random() * 4)]}
-                              style={{ width: "100%" }}
-                              onClick={() =>
-                                (window.location.href = link + book.id)
-                              }
-                            />
-                            <p className="card_title">
-                              {book.name}
-                              {book.id}
-                            </p>
-                          </div>
-                          <div
-                            className="back"
-                            onClick={() =>
-                              (window.location.href = link + book.id)
-                            }
-                          >
-                            <div className="content"><h4 className="text title">
-                              Daily Devotion Verse</h4><p className="text content">24 But let justice roll on like a river, righteousness like a never-failing stream! </p></div>
-                          </div>
-                        </div>
-                        {/* <p className="card_content">why God created us?</p> */}
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          ))}
+          <table className="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Reference</th>
+              </tr>
+            </thead>
+            <tbody>
+              {books.map(book => (
+                <tr >
+                  <td onClick={() => (window.location.href = link + book.id)} className="bible-table">
+                    {book.id}
+                  </td>
+                  <td>{book.name}</td>
+                  <td>{book.nameLong}{book.reference}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </React.Fragment>
     );

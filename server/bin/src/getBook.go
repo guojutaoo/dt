@@ -47,18 +47,14 @@ type text struct {
 	Data interface{} `json:"data"`
 }
 
-// type ChapterText struct {
-// 	ID        string `json:"id"`
-// 	Number    string `json:"number"`
-// 	BookID    string `json:"bookId"`
-// 	Reference string `json:"reference"`
-// 	Content   string `json:"content"`
-// 	Previous  string `json:"previous"`
-// 	Next      string `json:"next"`
-// }
+type url struct {
+	URL string `json:"url"`
+}
 
 func getVersions(w http.ResponseWriter, r *http.Request) {
-
+	w.Header().Set("Access-Control-Allow-Origin", "*")             //允许访问所有域
+	w.Header().Add("Access-Control-Allow-Headers", "Content-Type") //header的类型
+	w.Header().Set("content-type", "application/json")             //返回数据格式是json
 	client := &http.Client{}
 	request, err := http.NewRequest("GET", "https://api.scripture.api.bible/v1/bibles", nil)
 	request.Header.Set("api-key", "a93ffc2f6780bad2a25dbab5136df97e")
@@ -77,6 +73,9 @@ func getVersions(w http.ResponseWriter, r *http.Request) {
 }
 
 func getBooks(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")             //允许访问所有域
+	w.Header().Add("Access-Control-Allow-Headers", "Content-Type") //header的类型
+	w.Header().Set("content-type", "application/json")
 	client := &http.Client{}
 	request, err := http.NewRequest("GET", "https://api.scripture.api.bible/v1/bibles/9879dbb7cfe39e4d-01/books", nil)
 	request.Header.Set("api-key", "a93ffc2f6780bad2a25dbab5136df97e")
@@ -90,63 +89,74 @@ func getBooks(w http.ResponseWriter, r *http.Request) {
 			os.Exit(1)
 		}
 		bodyString := string(bodyBytes)
-		books := books{}
-		err = json.Unmarshal([]byte(bodyString), &books)
-		for _, book := range books.Data {
-			fmt.Fprintf(w, book.ID)
-			fmt.Fprintf(w, book.Abbreviation)
-		}
+		fmt.Fprintln(w, bodyString)
 	}
 }
 
 func getChapters(w http.ResponseWriter, r *http.Request) {
-	path := r.URL.Path[10:] //EXO
+	w.Header().Set("Access-Control-Allow-Origin", "*")             //允许访问所有域
+	w.Header().Add("Access-Control-Allow-Headers", "Content-Type") //header的类型
+	w.Header().Set("content-type", "application/json")             //返回数据格式是json
+	// path := r.URL.Path[10:]                                        //EXO
+	bodyBytes, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		fmt.Println(err)
+	}
+	bodyString := string(bodyBytes)
+	url := url{}
+	_ = json.Unmarshal([]byte(bodyString), &url)
 	client := &http.Client{}
-	request, err := http.NewRequest("GET", "https://api.scripture.api.bible/v1/bibles/9879dbb7cfe39e4d-01/books/"+path+"/chapters", nil)
+	request, err := http.NewRequest("GET", "https://api.scripture.api.bible/v1/bibles/9879dbb7cfe39e4d-01/books/"+url.URL+"/chapters", nil)
 	request.Header.Set("api-key", "a93ffc2f6780bad2a25dbab5136df97e")
 	if err != nil {
 		os.Exit(1)
 	}
 	resp, err := client.Do(request)
 	if resp.StatusCode == http.StatusOK {
-		bodyBytes, err := ioutil.ReadAll(resp.Body)
+		bodyBytes, err = ioutil.ReadAll(resp.Body)
 		if err != nil {
 			os.Exit(1)
 		}
-		bodyString := string(bodyBytes)
-		chapters := chapters{}
-		err = json.Unmarshal([]byte(bodyString), &chapters)
-		for _, chapter := range chapters.Data {
-			fmt.Fprintf(w, chapter.Number)
-			fmt.Fprintf(w, chapter.Reference)
-		}
+		bodyString = string(bodyBytes)
+		fmt.Println(bodyString)
+		fmt.Fprintln(w, bodyString)
 	}
 }
 
 func getChapterText(w http.ResponseWriter, r *http.Request) {
-	path := r.URL.Path[14:] //EXO.1
+	w.Header().Set("Access-Control-Allow-Origin", "*")             //允许访问所有域
+	w.Header().Add("Access-Control-Allow-Headers", "Content-Type") //header的类型
+	w.Header().Set("content-type", "application/json")             //返回数据格式是json
+	bodyBytes, err := ioutil.ReadAll(r.Body)                       //EXO.1
+	if err != nil {
+		fmt.Println(err)
+	}
+	bodyString := string(bodyBytes)
+	url := url{}
+	_ = json.Unmarshal([]byte(bodyString), &url)
 	client := &http.Client{}
-	request, err := http.NewRequest("GET", "https://api.scripture.api.bible/v1/bibles/9879dbb7cfe39e4d-01/chapters/"+path, nil)
+	fmt.Println(url.URL)
+	request, err := http.NewRequest("GET", "https://api.scripture.api.bible/v1/bibles/9879dbb7cfe39e4d-01/chapters/"+url.URL, nil)
 	request.Header.Set("api-key", "a93ffc2f6780bad2a25dbab5136df97e")
 	if err != nil {
 		os.Exit(1)
 	}
 	resp, err := client.Do(request)
 	if resp.StatusCode == http.StatusOK {
-		bodyBytes, err := ioutil.ReadAll(resp.Body)
+		bodyBytes, err = ioutil.ReadAll(resp.Body)
 		if err != nil {
 			os.Exit(1)
 		}
-		bodyString := string(bodyBytes)
-		chaptersText := text{}
-		err = json.Unmarshal([]byte(bodyString), &chaptersText)
-		fmt.Fprintf(w, chaptersText.Data.(map[string]interface{})["bookId"].(string))
-		fmt.Fprintf(w, chaptersText.Data.(map[string]interface{})["next"].(map[string]interface{})["bookId"].(string))
+		bodyString = string(bodyBytes)
+		fmt.Fprintf(w, bodyString)
 	}
 }
 
 func getVerses(w http.ResponseWriter, r *http.Request) {
-	path := r.URL.Path[8:] //EXO.1
+	w.Header().Set("Access-Control-Allow-Origin", "*")             //允许访问所有域
+	w.Header().Add("Access-Control-Allow-Headers", "Content-Type") //header的类型
+	w.Header().Set("content-type", "application/json")             //返回数据格式是json
+	path := r.URL.Path[8:]                                         //EXO.1
 	fmt.Fprintf(w, path)
 	client := http.Client{}
 	request, err := http.NewRequest("GET", "https://api.scripture.api.bible/v1/bibles/9879dbb7cfe39e4d-01/chapters/"+path+"/verses", nil)
@@ -172,7 +182,10 @@ func getVerses(w http.ResponseWriter, r *http.Request) {
 }
 
 func getVerseText(w http.ResponseWriter, r *http.Request) {
-	path := r.URL.Path[12:] //EXO.1.1
+	w.Header().Set("Access-Control-Allow-Origin", "*")             //允许访问所有域
+	w.Header().Add("Access-Control-Allow-Headers", "Content-Type") //header的类型
+	w.Header().Set("content-type", "application/json")             //返回数据格式是json
+	path := r.URL.Path[12:]                                        //EXO.1.1
 	fmt.Fprintf(w, path)
 	client := &http.Client{}
 	request, err := http.NewRequest("GET", "https://api.scripture.api.bible/v1/bibles/9879dbb7cfe39e4d-01/verses/"+path+"?include-chapter-numbers=false&include-verse-numbers=false", nil)

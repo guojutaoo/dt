@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Cards from "./common/cards";
 import { getChapters } from "./server/getBible";
+import axios from "axios"
 import Key from "./key.json";
+
 
 class ReadChapter extends Component {
   state = { chapterId: "", chapters: [], rowNum: [0] };
@@ -9,15 +11,14 @@ class ReadChapter extends Component {
     window.scrollTo(0, 0);
     const chapterId = this.props.match.params.id;
     this.setState({ chapterId });
-    const chapters = await getChapters(Key["ESV"], chapterId);
-    this.setState({ chapters });
-    const rowNum = Array.apply(null, {
-      length: Math.ceil(chapters.length / 4)
-    }).map(Number.call, Number);
-    this.setState({ rowNum });
+    axios
+    .post("http://localhost:8080/chapters", {url: chapterId})
+    .then(res=> {
+      this.setState({chapters: res.data.data}), console.log(res.data.data);
+    });
   }
   render() {
-    // console.log(this.state.chapters)
+    console.log(this.state.chapters)
     const link = "/read-bible/text/";
     const chapters = [...this.state.chapters];
     const rowNum = this.state.rowNum;

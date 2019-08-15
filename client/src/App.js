@@ -65,7 +65,6 @@ class App extends Component {
         <Navbar />
         <div className="App">
           <Switch>
-            <Route path="/admin" component={Admin} />
             <Route path="/past-verses" component={PastVerses} />
             <Route path="/home" component={Home} />
             <Route path="/read-bible" exact component={ReadBible} />
@@ -75,6 +74,7 @@ class App extends Component {
             <Route path="/daily-devotion/:id" component={RenderPastVerse} />
             <Route path="/not-found" component={NotFound} />
             <Route path="/login" component={Login} />
+            <Route path="/admin" component={Admin} />
             <Route path="/registration" component={Registration} />
             <Redirect from="/" exact to="home" />
             <Redirect to="/not-found" />

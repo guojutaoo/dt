@@ -101,8 +101,7 @@ export function getSections(bibleVersionID, bibleBookID) {
       });
   
       xhr.open(`GET`, `https://api.scripture.api.bible/v1/bibles/${bibleVersionID}/chapters/${bibleChapterID}/verses`);
-      xhr.setRequestHeader(`api-key`, key['API_KEY']);
-  
+      xhr.setRequestHeader(`api-key`, key['API_KEY']);  
       xhr.onerror = () => reject(xhr.statusText);
   
       xhr.send();
@@ -117,8 +116,7 @@ export function getSections(bibleVersionID, bibleBookID) {
       xhr.addEventListener(`readystatechange`, function() {
         if (this.readyState === this.DONE) {
           const {data, meta} = JSON.parse(this.responseText);
-          console.log(data, meta)
-  
+          console.log(data, meta)  
         //   _BAPI.t(meta.fumsId);
           resolve(data.content);
         }

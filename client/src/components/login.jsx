@@ -17,7 +17,7 @@ class Login extends Component {
       .post("http://localhost:8080/login", {email: this.state.email, password: this.state.password
       })
       .then(res=> {
-        this.setState({auth: res.data});
+        this.setState({auth: res.data}), console.log(res);
       });
   };
 

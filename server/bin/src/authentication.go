@@ -14,7 +14,6 @@ type data struct {
 }
 
 func login(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(111)
 	w.Header().Set("Access-Control-Allow-Origin", "*")             //允许访问所有域
 	w.Header().Add("Access-Control-Allow-Headers", "Content-Type") //header的类型
 	w.Header().Set("content-type", "application/json")             //返回数据格式是json
@@ -29,6 +28,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 	if data.Email != "" && data.Password != "" {
 		if isRegistered(data.Email, data.Password) {
 			fmt.Println(211)
+			fmt.Fprintf(w, "true")
 			addCookie(w, "Flag", "True")
 		} else {
 			fmt.Println(985)

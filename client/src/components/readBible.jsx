@@ -1,19 +1,17 @@
 import React, { Component } from "react";
 import Cards from "./common/cards";
 import { getBooks } from "./server/getBible";
+import axios from "axios";
 import Key from "./key.json";
-import "./css/bibleCards.css";
 
 class ReadBible extends Component {
   state = { books: [], rowNum: [0] };
   async componentDidMount() {
-    const books = await getBooks(Key["ESV"]);
-    this.setState({ books });
-    const rowNum = Array.apply(null, {
-      length: Math.ceil(books.length / 4)
-    }).map(Number.call, Number);
-    this.setState({ rowNum });
-    // console.log(this.state.books)
+    await axios
+    .post("http://localhost:8080/books")
+    .then(res=> {
+      this.setState({books: res.data.data}), console.log(res.data);
+    });
   }
 
   render() {

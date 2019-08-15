@@ -1,0 +1,17 @@
+.btn-turn{
+    height: 50px;
+    width:  100%;          
+    /* text-align: center; */
+    /* background-color: yellow; */
+    position: fixed;
+    bottom: 100px;
+}
+
+#btn-previous{
+    margin-top: -500px;
+    margin-right: 70%;
+}
+
+#btn-next{
+    margin-top: -500px;
+}
